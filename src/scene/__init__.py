@@ -1,1 +1,1 @@
-from baseScene import Scene
+from .baseScene import BaseScene

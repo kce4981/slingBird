@@ -9,3 +9,6 @@ class kilogram:
 
     def from_gram(self, value):
         self.value =  value / 1000 
+
+    def getValue(self):
+        return self.value

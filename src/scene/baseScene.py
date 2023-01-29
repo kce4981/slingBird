@@ -1,3 +1,5 @@
 
-class Scene:
-    pass
+class BaseScene:
+    
+    def draw(self):
+        pass
