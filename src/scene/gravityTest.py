@@ -13,9 +13,14 @@ class GravityTest(BaseScene):
         img.fill(pygame.Color(119, 41, 241))
         rect = img.get_rect()
 
-        obj = GravityObject(mass, (0, 0), rect, img)
+        obj = GravityObject(mass, rect, img)
         self.newGroup = pygame.sprite.Group()
         obj.add(self.newGroup)
+
+        heavierImg = img.copy()
+        heavierImg.fill(pygame.Color(0, 255, 0))
+        heavierObj = GravityObject(unit.kilogram(1000), heavierImg.get_rect().move(100, 0), heavierImg)
+        heavierObj.add(self.newGroup)
 
 
     def draw(self, surface: pygame.Surface):

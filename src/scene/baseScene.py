@@ -1,5 +1,6 @@
+from pygame.surface import Surface
 
 class BaseScene:
     
-    def draw(self):
+    def draw(self, surface: Surface):
         pass

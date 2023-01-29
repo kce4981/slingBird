@@ -10,13 +10,13 @@ class SlingBird:
         self.background = self.surface.copy()
 
 
-    def run(self, scene: BaseScene, framerate):
+    def run(self, scene: BaseScene):
+        from .config import ConfigLoader
         clock = pygame.time.Clock()
 
         running = True
         while(running):
-
-            clock.tick(framerate)
+            clock.tick(ConfigLoader.getConfig()['framerate'])
             self.surface.blit(self.background, (0, 0))
             scene.draw(self.surface)
             pygame.display.flip()

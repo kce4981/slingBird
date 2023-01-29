@@ -5,8 +5,8 @@ import pygame
 
 class GravityObject(BaseObject):
 
-    def __init__(self, mass: kilogram, pos: vec2d, rect: pygame.Rect, img: pygame.Surface) -> None:
-        super().__init__(mass, pos, rect, img)
+    def __init__(self, mass: kilogram, rect: pygame.rect.Rect, img: pygame.surface.Surface, screenRect=None) -> None:
+        super().__init__(mass, rect, img, screenRect)
 
     def update(self):
         # positive number moves downward
