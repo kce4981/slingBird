@@ -18,7 +18,7 @@ class SlingBird:
 
         running = True
         while(running):
-            clock.tick(ConfigLoader.getConfig()['framerate'])
+            clock.tick(ConfigLoader.framerate)
             self.surface.blit(self.background, (0, 0))
             scene.draw(self.surface)
             pygame.display.flip()

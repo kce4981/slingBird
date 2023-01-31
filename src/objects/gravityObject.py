@@ -19,10 +19,10 @@ class GravityObject(BaseObject, Mechanics):
 
     # Overriding
     def update(self) -> None:
-        cfg = ConfigLoader.getConfig()
+        gravityConstant = ConfigLoader.gravityConstant
         clock = ClockLoader.clock
         
-        gravity = vec2d(0, 1) * cfg["gravityConstant"] * clock.get_time() / 1000 # ms to sec
+        gravity = vec2d(0, 1) * gravityConstant * clock.get_time() / 1000 # ms to sec
         self.accelerate += gravity
         displacement = self.tickMechanics()
         self.rect.move_ip(displacement)
