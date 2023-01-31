@@ -1,6 +1,6 @@
 
 
-class kilogram:
+class Kilogram:
 
     value: float
 

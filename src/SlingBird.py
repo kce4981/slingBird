@@ -11,8 +11,10 @@ class SlingBird:
 
 
     def run(self, scene: BaseScene):
-        from .config import ConfigLoader
-        clock = pygame.time.Clock()
+        from .utils import ConfigLoader
+        from .utils import ClockLoader
+
+        clock = ClockLoader.clock
 
         running = True
         while(running):

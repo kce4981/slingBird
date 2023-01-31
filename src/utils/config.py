@@ -4,7 +4,9 @@ import pathlib
 
 class ConfigLoader:
     
-    path = pathlib.Path(__file__).parents[1] / 'config.yaml'
+    load: dict[str, int]
+
+    path = pathlib.Path(__file__).parents[2] / 'config.yaml'
 
     defaultConfig = {'framerate': 24, 'gravityConstant': 9.8}
 

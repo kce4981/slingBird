@@ -1,5 +1,5 @@
-from src.slingBird import SlingBird
-from src.scene.gravityTest import GravityTest
+from src.SlingBird import SlingBird
+from src.scene import GravityTest
 
 slingBird = SlingBird()
 gravityTest = GravityTest()

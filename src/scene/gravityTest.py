@@ -1,28 +1,26 @@
-from .baseScene import BaseScene
-from ..objects import GravityObject
-from .. utils import unit
-import pygame
-
+from . import BaseScene
+from ..objects import BaseObject, GravityObject
+from ..utils import Kilogram
+from pygame.surface import Surface
+from pygame import sprite
 
 class GravityTest(BaseScene):
 
     def __init__(self):
 
-        mass = unit.kilogram(3)
-        img = pygame.Surface((30, 30))
-        img.fill(pygame.Color(119, 41, 241))
-        rect = img.get_rect()
+        self.group = sprite.Group()
 
-        obj = GravityObject(mass, rect, img)
-        self.newGroup = pygame.sprite.Group()
-        obj.add(self.newGroup)
+        background = Surface((30, 30))
+        background.fill((121, 204, 43))
+        baseObject = BaseObject(background.get_rect(), background)
 
-        heavierImg = img.copy()
-        heavierImg.fill(pygame.Color(0, 255, 0))
-        heavierObj = GravityObject(unit.kilogram(1000), heavierImg.get_rect().move(100, 0), heavierImg)
-        heavierObj.add(self.newGroup)
+        mass = Kilogram(3)
+        testGravity = GravityObject.fromObject(baseObject, mass)
+        print(testGravity.velocity)
+        testGravity.add(self.group)
 
 
-    def draw(self, surface: pygame.Surface):
-        self.newGroup.update()
-        self.newGroup.draw(surface)
+
+    def draw(self, surface: Surface):
+        self.group.update()
+        self.group.draw(surface)
