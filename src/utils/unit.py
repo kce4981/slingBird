@@ -2,13 +2,18 @@
 
 class Kilogram:
 
-    value: float
+    _value: float
 
     def __init__(self, value:float) -> None:
         self.value = value
 
     def from_gram(self, value):
-        self.value =  value / 1000 
+        self.value = value / 1000 
 
-    def getValue(self):
-        return self.value
+    @property
+    def value(self):
+        return self._value
+
+    @value.setter
+    def value(self, v):
+        self._value = v
