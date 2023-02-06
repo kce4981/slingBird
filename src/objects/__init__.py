@@ -1,3 +1,4 @@
 from .baseObject import BaseObject
 from .gravityObject import GravityObject
-from .particleObject import ParticleObject
+from .singleParticle import SingleParticle
+from .particleSquare import ParticleSquare

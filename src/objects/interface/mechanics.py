@@ -27,6 +27,6 @@ class Mechanics(Protocol):
     def tickMechanics(self) -> vec2d:
 
         force = self.calcAppliedForce()
-        self.accelerate += force / self.mass.getValue()
+        self.accelerate += force / self.mass.value
         self.velocity += self.accelerate
         return self.velocity

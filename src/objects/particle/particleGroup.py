@@ -1,15 +1,26 @@
 from ...utils import Kilogram, vec2d
 
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    # TYPE_CHECKING will be false on runtime, which resolves circular import error
+    from . import Particle
+
+
 class ParticleGroup:
+
+    particles: tuple['Particle']
 
     def __init__(self, particles: tuple) -> None:
 
         self.particles = particles
         for p in particles:
             p.group = self
-
         
     
+    def move(self, offset: vec2d):
+        for p in self.particles:
+            p.directMove(offset)
+
     @property
     def mass(self) -> Kilogram:
         massSum = Kilogram(0)
