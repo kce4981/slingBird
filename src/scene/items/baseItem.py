@@ -4,5 +4,5 @@ import pygame
 class BaseItem:
 
     @abstractmethod
-    def draw(self, surface: pygame.surface.Surface):
+    def draw(self, surface: pygame.surface.Surface, *args):
         pass

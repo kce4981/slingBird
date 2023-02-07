@@ -14,6 +14,17 @@ class BaseScene:
         self.group = pygame.sprite.Group()
         self.items = []
 
+        from pygame.font import Font
+        from .items import TextBox, Text
+        pos = vec2d(1300, 20)
+
+        font = Font(pygame.font.get_default_font(), 24)
+        settingText = Text("Settings", tuple(pos))
+        textBoxRect = pygame.rect.Rect(pos[0], pos[1] + 50, 150, 20)
+        textBox = TextBox(textBoxRect)
+        self.items.append(textBox)
+        self.items.append(settingText)
+
     def addGroup(self, *args: pygame.sprite.Sprite):
         for sprite in args:
             sprite.add(self.group)
@@ -27,20 +38,13 @@ class BaseScene:
 
     def drawItems(self, surface: pygame.surface.Surface) -> None:
         for item in self.items:
-            item.draw(surface)
+            item.draw(surface, self.registeredEvent)
 
     def drawSettings(self, surface: pygame.surface.Surface):
-        from pygame.font import Font
-        from .items import TextBox
         pos = vec2d(1300, 20)
         pygame.draw.rect(surface, (237, 201, 102), pygame.rect.Rect(1280, 0, 200, 720))
 
-        font = Font(pygame.font.get_default_font(), 24)
-        settingText = font.render("Settings", True, (0, 0, 0))
-        textBoxRect = pygame.rect.Rect(pos[0], pos[1] + 50, 150, 20)
-        textBox = TextBox(textBoxRect)
-        self.items.append(textBox)
-        surface.blit(settingText, pos)
+
 
     def handleEvent(self):
         from pygame import locals
@@ -48,8 +52,7 @@ class BaseScene:
         for event in pygame.event.get():
             if self.registeredEvent.get(event.type) is not None:
                 for f in self.registeredEvent[event.type]:
-                    f()
-            print(event)
+                    f(event)
             if event == locals.QUIT:
                 pygame.quit()
 
