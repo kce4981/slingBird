@@ -20,24 +20,19 @@ class GravityObject(BaseObject, Mechanics):
     # Overriding
     def update(self) -> None:
         gravityConstant = ConfigLoader.gravityConstant
-        clock = ClockLoader.clock
+
+        gravity = vec2d(0, 1) * gravityConstant * self.mass.getValue() * ClockLoader.getTime()
+        self.appliedForces.append(gravity)
+
+        self.tickMechanics()
         
-        gravity = vec2d(0, 1) * gravityConstant * clock.get_time() / 1000 # ms to sec
-        self.accelerate += gravity
-        displacement = self.tickMechanics()
-        self.rect.move_ip(displacement)
 
         # this selection is for test purposes
         from pygame import mouse
-        from pygame.display import get_window_size
-        from pygame.rect import Rect
 
-        screenRect = Rect(0, 0, *get_window_size())
-        if not screenRect.contains(self.rect):
-            self.rect.clamp_ip(screenRect)
+        if mouse.get_pressed()[1]:
+            print(self._accelerate, self.velocity)
 
         if mouse.get_pressed()[0]:
-            self.accelerate = vec2d()
-            self.velocity = vec2d()
-            self.rect.update(*mouse.get_pos(), self.rect.width, self.rect.height)
-
+            offset = vec2d(*mouse.get_pos()) - vec2d(self.rect.center)
+            self.move(offset)

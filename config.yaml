@@ -1,2 +1,3 @@
-framerate: 30
+framerate: 12
 gravityConstant: 9.8
+speed: 0.01
