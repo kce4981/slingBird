@@ -18,18 +18,21 @@ class Spring(BaseObject):
             self.initLength = self.getLengthVec2d().normalize() * length
 
         self.image = pygame.display.get_surface()
-        self.rect = pygame.draw.line(self.image, (80, 80, 80), pos, particle.pos, 5)
-
+        self.rect = self.image.get_rect()
+        pygame.draw.line(self.image, (80, 80, 80), pos, particle.pos, 5)
         super().__init__(self.rect, self.image)
 
 
     def update(self) -> None:
+        from ..utils import ClockLoader
 
-        self.rect = pygame.draw.line(self.image, (80, 80, 80), self.pos, self.particle.pos, 5)
-        springForce = (self.getLengthVec2d() - self.initLength) * -1 * self.springConstant
-        # print(self.getLengthVec2d() - self.initLength, springForce)
-        self.particle.velocity *= 0.9
+        length = self.getLengthVec2d()
+
+        pygame.draw.line(self.image, (80, 80, 80), self.pos, self.particle.pos, 5)
+        # self.rect.midtop = tuple(self.pos)
+        springForce = (length - self.initLength) * -1 * self.springConstant 
         self.particle.appliedForces.append(springForce)
+
 
     def getLengthVec2d(self) -> vec2d:
         return self.particle.pos - self.pos

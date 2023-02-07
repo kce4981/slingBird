@@ -24,7 +24,8 @@ class ParticleSquare(BaseObject):
         super().__init__(self.rect, self.image)
 
     def update(self) -> None:
-        # self.mainParticle.appliedForces.append(vec2d(0, 1) * .98)
+        from ..utils import ConfigLoader
+        self.mainParticle.appliedForces.append(vec2d(0, 1) * ConfigLoader.gravityConstant)
         self.mainParticle.tickMechanics()
         self.rect.topleft = self.mainParticle.pos
         

@@ -16,7 +16,6 @@ class GravityTest(BaseScene):
 
         mass = Kilogram(3)
         testGravity = GravityObject.fromObject(baseObject, mass)
-        print(testGravity.velocity)
         testGravity.add(self.group)
 
 

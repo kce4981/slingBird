@@ -12,12 +12,12 @@ class ParticleTest(BaseScene):
         #particle = SingleParticle(vec2d(30, 30))
         #particle.add(self.group)
 
-        pSquare = ParticleSquare(vec2d(300, 100), 20)
+        pSquare = ParticleSquare(vec2d(300, 300), 20)
         pSquare.add(self.group)
 
         mainParticle = pSquare.group.particle[0]
 
-        spring = Spring(vec2d(300, 15), mainParticle, .1, length=50)
+        spring = Spring(vec2d(300, 200), mainParticle, 1, length=50)
         spring.add(self.group)
 
 
