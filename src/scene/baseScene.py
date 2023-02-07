@@ -1,50 +1,58 @@
 import pygame
-from typing import Any, Callable
+from typing import Callable
 from ..utils import vec2d
-from .items import BaseItem, TextBox
+from .items import BaseItem, Text, Button
+
 
 class BaseScene:
 
-    _settings: dict = {}
     group: pygame.sprite.Group
     items: list[BaseItem]
-    registeredEvent: dict[int, list[Callable]] = {}
+    registeredEvent: dict[int, list[Callable]]
+    start: bool
 
-    def __init__(self) -> None:
+    def __init__(self, description: str) -> None:
+
         self.group = pygame.sprite.Group()
         self.items = []
+        self.registeredEvent = {}
+        self.start = False
 
-        from pygame.font import Font
-        from .items import TextBox, Text
         pos = vec2d(1300, 20)
-
-        font = Font(pygame.font.get_default_font(), 24)
         settingText = Text("Settings", tuple(pos))
-        textBoxRect = pygame.rect.Rect(pos[0], pos[1] + 50, 150, 20)
-        textBox = TextBox(textBoxRect)
-        self.items.append(textBox)
         self.items.append(settingText)
+
+        button = Button('start', (1300, 680))
+        self.items.append(button)
+
+        descriptionText = Text(description, tuple(pos + vec2d(0, 40)), color=pygame.color.Color(128, 128, 128))
+        self.items.append(descriptionText)
+
 
     def addGroup(self, *args: pygame.sprite.Sprite):
         for sprite in args:
             sprite.add(self.group)
 
     def draw(self, surface: pygame.surface.Surface):
-        self.group.update()
-        self.group.draw(surface)
         self.handleEvent()
         self.drawSettings(surface)
         self.drawItems(surface)
+        self.handleSetting()
+
+        if self.start:
+            self.group.update()
+            self.group.draw(surface)
+
+    def handleSetting(self) -> None:
+        assert isinstance(self.items[1], Button)
+        self.start = self.items[1].activated
 
     def drawItems(self, surface: pygame.surface.Surface) -> None:
         for item in self.items:
             item.draw(surface, self.registeredEvent)
 
     def drawSettings(self, surface: pygame.surface.Surface):
-        pos = vec2d(1300, 20)
         pygame.draw.rect(surface, (237, 201, 102), pygame.rect.Rect(1280, 0, 200, 720))
-
-
 
     def handleEvent(self):
         from pygame import locals
@@ -53,15 +61,7 @@ class BaseScene:
             if self.registeredEvent.get(event.type) is not None:
                 for f in self.registeredEvent[event.type]:
                     f(event)
-            if event == locals.QUIT:
-                pygame.quit()
-
-    @property
-    def settings(self) -> dict:
-        return self._settings
-
-    @settings.setter
-    def settings(self, value: dict) -> None:
-        self._settings = value
+            if event.type == locals.QUIT:
+                quit()
 
         

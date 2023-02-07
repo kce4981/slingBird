@@ -8,21 +8,22 @@ class SingleParticle(BaseObject):
     def __init__(self, pos: vec2d) -> None:
 
         self.image = pygame.surface.Surface((30, 30))
+        self.image.set_colorkey((0, 0, 0))
         self.rect = self.image.get_rect()
         pygame.draw.circle(self.image, (255, 255, 255), self.rect.center, 5)
         self.rect.center = tuple(pos)
         super().__init__(self.rect, self.image)
 
-        self.particle = Particle(Kilogram(1), pos)
+        self.mainParticle = Particle(Kilogram(1), pos)
     
     def update(self) -> None:
-        self.particle.appliedForces.append(vec2d(0, 1) * .98)
-        self.particle.tickMechanics()
-        self.rect.center = self.particle.pos
+        self.mainParticle.appliedForces.append(vec2d(0, 1) * .98)
+        self.mainParticle.tickMechanics()
+        self.rect.center = self.mainParticle.pos
         
         from pygame import mouse
 
-        if mouse.get_pressed()[0]:
-            self.particle.move(vec2d(mouse.get_pos()), offset=False)
-            self.particle.velocity = vec2d(0, 0)
-            self.particle.accelerate = vec2d(0, 0)
+        if mouse.get_pressed()[0] and mouse.get_pos()[0] < 1280:
+            self.mainParticle.move(vec2d(mouse.get_pos()), offset=False)
+            self.mainParticle.velocity = vec2d(0, 0)
+            self.mainParticle.accelerate = vec2d(0, 0)

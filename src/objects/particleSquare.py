@@ -31,7 +31,7 @@ class ParticleSquare(BaseObject):
         
         from pygame import mouse
 
-        if mouse.get_pressed()[0]:
+        if mouse.get_pressed()[0] and mouse.get_pos()[0] < 1280:
             self.mainParticle.move(vec2d(mouse.get_pos()), offset=False)
             self.mainParticle.velocity = vec2d(0, 0)
             self.mainParticle.accelerate = vec2d(0, 0)

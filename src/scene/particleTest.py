@@ -7,7 +7,7 @@ class ParticleTest(BaseScene):
 
     def __init__(self):
 
-        super().__init__()
+        super().__init__("Draggable")
 
         #particle = SingleParticle(vec2d(30, 30))
         #particle.add(self.group)

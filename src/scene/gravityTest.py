@@ -8,7 +8,7 @@ class GravityTest(BaseScene):
 
     def __init__(self):
 
-        super().__init__()
+        super().__init__("Draggable")
 
         background = Surface((30, 30))
         background.fill((121, 204, 43))
