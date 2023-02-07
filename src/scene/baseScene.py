@@ -33,15 +33,20 @@ class BaseScene:
         for sprite in args:
             sprite.add(self.group)
 
+    def drawAfterStart(self, surface: pygame.surface.Surface):
+        pass
+
     def draw(self, surface: pygame.surface.Surface):
+
+        if self.start:
+            self.drawAfterStart(surface)
+            self.group.update()
+            self.group.draw(surface)
+
         self.handleEvent()
         self.drawSettings(surface)
         self.drawItems(surface)
         self.handleSetting()
-
-        if self.start:
-            self.group.update()
-            self.group.draw(surface)
 
     def handleSetting(self) -> None:
         assert isinstance(self.items[1], Button)

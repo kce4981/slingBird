@@ -3,14 +3,16 @@ from . import BaseObject
 from ..utils import Kilogram, vec2d
 import pygame
 
+DEFAULT_PARTICLE_COLOR = pygame.color.Color(255, 255, 255)
+
 class SingleParticle(BaseObject):
 
-    def __init__(self, pos: vec2d) -> None:
+    def __init__(self, pos: vec2d, color: pygame.color.Color=DEFAULT_PARTICLE_COLOR) -> None:
 
         self.image = pygame.surface.Surface((30, 30))
         self.image.set_colorkey((0, 0, 0))
         self.rect = self.image.get_rect()
-        pygame.draw.circle(self.image, (255, 255, 255), self.rect.center, 5)
+        pygame.draw.circle(self.image, color, self.rect.center, 5)
         self.rect.center = tuple(pos)
         super().__init__(self.rect, self.image)
 
