@@ -6,7 +6,7 @@ class SlingBird:
 
     def __init__(self):
         pygame.init()
-        self.surface = pygame.display.set_mode((1280, 720))
+        self.surface = pygame.display.set_mode((1480, 720))
         self.background = self.surface.copy()
 
 
@@ -23,7 +23,3 @@ class SlingBird:
             scene.draw(self.surface)
             pygame.display.flip()
 
-
-            for event in pygame.event.get():
-                if event == QUIT:
-                    pygame.quit()

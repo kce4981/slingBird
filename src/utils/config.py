@@ -2,7 +2,7 @@ import yaml
 import pathlib
 from typing import Any
 
-DEFAULTCONFIG = {'framerate': 24, 'gravityConstant': 9.8}
+DEFAULTCONFIG = {'framerate': 24, 'gravityConstant': 9.8, 'speed': 1}
 PATH = pathlib.Path(__file__).parents[2] / 'config.yaml'
 
 
@@ -18,6 +18,11 @@ class ConfigLoader:
     @property
     def gravityConstant(cls) -> float:
         return cls._gravityConstant
+
+    @classmethod
+    @property
+    def speed(cls) -> float:
+        return cls._speed
 
     @staticmethod
     def loadConfigFile() -> dict[str, Any]:
@@ -35,6 +40,7 @@ class ConfigLoader:
             yaml.dump(config, fp)
 
     _config = loadConfigFile()
+    _speed: float= _config["speed"]
     _framerate: int = _config["framerate"]
     _gravityConstant: float = _config["gravityConstant"]
 

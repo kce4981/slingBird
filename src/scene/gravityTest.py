@@ -8,7 +8,7 @@ class GravityTest(BaseScene):
 
     def __init__(self):
 
-        self.group = sprite.Group()
+        super().__init__("Draggable")
 
         background = Surface((30, 30))
         background.fill((121, 204, 43))
@@ -16,11 +16,5 @@ class GravityTest(BaseScene):
 
         mass = Kilogram(3)
         testGravity = GravityObject.fromObject(baseObject, mass)
-        print(testGravity.velocity)
-        testGravity.add(self.group)
-
-
-
-    def draw(self, surface: Surface):
-        self.group.update()
-        self.group.draw(surface)
+        
+        self.addGroup(testGravity)

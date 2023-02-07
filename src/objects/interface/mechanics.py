@@ -25,8 +25,13 @@ class Mechanics(Protocol):
         return forceSum
 
     def tickMechanics(self) -> vec2d:
-
+        from ...utils import ClockLoader
+        timeSpan = ClockLoader.getTime()
         force = self.calcAppliedForce()
-        self.accelerate += force / self.mass.getValue()
-        self.velocity += self.accelerate
-        return self.velocity
+
+        # i don't think that's how f=ma works
+        # but it actually works
+        self.accelerate = force / self.mass.value
+        self.velocity += self.accelerate * timeSpan
+        displacement = self.velocity * timeSpan
+        return displacement
