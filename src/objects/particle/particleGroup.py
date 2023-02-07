@@ -8,23 +8,23 @@ if TYPE_CHECKING:
 
 class ParticleGroup:
 
-    particles: tuple['Particle']
+    _particle: tuple['Particle']
 
-    def __init__(self, particles: tuple) -> None:
+    def __init__(self, particles: tuple['Particle']) -> None:
 
-        self.particles = particles
+        self.particle = particles
         for p in particles:
             p.group = self
         
     
     def move(self, offset: vec2d):
-        for p in self.particles:
+        for p in self.particle:
             p.directMove(offset)
 
     @property
     def mass(self) -> Kilogram:
         massSum = Kilogram(0)
-        for p in self.particles:
+        for p in self.particle:
             massSum.value += p.mass.value
 
         return massSum
@@ -33,7 +33,7 @@ class ParticleGroup:
     def accelerate(self) -> vec2d:
         acc = vec2d()
 
-        for p in self.particles:
+        for p in self.particle:
             acc += p.accelerate
         
         return acc
@@ -42,7 +42,15 @@ class ParticleGroup:
     def velocity(self) -> vec2d:
         vel = vec2d()
 
-        for p in self.particles:
+        for p in self.particle:
             vel += p.velocity
 
         return vel
+
+    @property
+    def particle(self) -> tuple['Particle']:
+        return self._particle
+
+    @particle.setter
+    def particle(self, value: tuple['Particle']) -> None:
+        self._particle = value

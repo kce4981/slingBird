@@ -17,8 +17,6 @@ class Particle(Mechanics):
         displacement = super().tickMechanics()
         self.move(displacement, offset=True)
 
-        if self.pos[1] > 720 and self.velocity.dot(vec2d(0, 1)) >= 0:
-            self.velocity *= -1
 
     def move(self, pos: vec2d, offset=True) -> None:
 
@@ -39,7 +37,7 @@ class Particle(Mechanics):
         return copy(self)
 
     @property
-    def group(self) -> 'ParticleGroup':
+    def group(self) -> Optional['ParticleGroup']:
         return self._group
 
     @group.setter

@@ -12,19 +12,19 @@ class ParticleSquare(BaseObject):
         self.rect = self.image.get_rect()
         pygame.draw.rect(self.image, (255, 255, 255), self.rect, radius)
         self.rect.topleft = tuple(topLeft)
+
+        self.mainParticle = Particle(Kilogram(1), vec2d(self.rect.topleft))
+        ps: list[Particle] = []
+        ps.append(self.mainParticle)        
+        ps.append(Particle(Kilogram(1), vec2d(self.rect.topright)))
+        ps.append(Particle(Kilogram(1), vec2d(self.rect.bottomleft)))
+        ps.append(Particle(Kilogram(1), vec2d(self.rect.bottomright)))
+        self.group = ParticleGroup(tuple(ps))
+    
         super().__init__(self.rect, self.image)
 
-        self.group = ParticleGroup
-        self.mainParticle = Particle(Kilogram(.25), vec2d(self.rect.topleft))
-        ps = []
-        ps.append(self.mainParticle)        
-        ps.append(Particle(Kilogram(.25), vec2d(self.rect.topright)))
-        ps.append(Particle(Kilogram(.25), vec2d(self.rect.bottomleft)))
-        ps.append(Particle(Kilogram(.25), vec2d(self.rect.bottomright)))
-        self.group(tuple(ps))
-    
     def update(self) -> None:
-        self.mainParticle.appliedForces.append(vec2d(0, 1) * .98)
+        # self.mainParticle.appliedForces.append(vec2d(0, 1) * .98)
         self.mainParticle.tickMechanics()
         self.rect.topleft = self.mainParticle.pos
         
