@@ -23,7 +23,3 @@ class SlingBird:
             scene.draw(self.surface)
             pygame.display.flip()
 
-
-            for event in pygame.event.get():
-                if event == QUIT:
-                    pygame.quit()

@@ -7,20 +7,12 @@ class ParticleTest(BaseScene):
 
     def __init__(self):
 
-        self.group = pygame.sprite.Group()
+        super().__init__()
 
         #particle = SingleParticle(vec2d(30, 30))
         #particle.add(self.group)
 
         pSquare = ParticleSquare(vec2d(300, 300), 20)
-        pSquare.add(self.group)
+        spring = Spring(vec2d(300, 200), pSquare.mainParticle, 1, length=50)
 
-        mainParticle = pSquare.group.particle[0]
-
-        spring = Spring(vec2d(300, 200), mainParticle, 1, length=50)
-        spring.add(self.group)
-
-
-    def draw(self, surface: pygame.surface.Surface):
-        self.group.update()
-        self.group.draw(surface)
+        self.addGroup(pSquare, spring)
