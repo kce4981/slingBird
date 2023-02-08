@@ -7,7 +7,7 @@ DEFAULT_PARTICLE_COLOR = pygame.color.Color(255, 255, 255)
 
 class SingleParticle(BaseObject):
 
-    def __init__(self, pos: vec2d, color: pygame.color.Color=DEFAULT_PARTICLE_COLOR) -> None:
+    def __init__(self, pos: vec2d, color: pygame.color.Color=DEFAULT_PARTICLE_COLOR, mass: Kilogram=Kilogram(1)) -> None:
 
         self.image = pygame.surface.Surface((30, 30))
         self.image.set_colorkey((0, 0, 0))
@@ -16,10 +16,11 @@ class SingleParticle(BaseObject):
         self.rect.center = tuple(pos)
         super().__init__(self.rect, self.image)
 
-        self.mainParticle = Particle(Kilogram(1), pos)
+        self.mainParticle = Particle(mass, pos)
     
     def update(self) -> None:
-        self.mainParticle.appliedForces.append(vec2d(0, 1) * .98)
+        from ..utils import ConfigLoader
+        self.mainParticle.appliedForces.append(vec2d(0, 1) * ConfigLoader.gravityConstant * self.mainParticle.mass.value)
         self.mainParticle.tickMechanics()
         self.rect.center = self.mainParticle.pos
         

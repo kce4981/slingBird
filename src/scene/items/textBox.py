@@ -1,6 +1,6 @@
 import pygame
 from .baseItem import BaseItem
-from . import Text
+from . import TextHelper
 from ...utils import vec2d
 
 
@@ -10,8 +10,8 @@ class TextBox(BaseItem):
         
         self.rect = pygame.rect.Rect(*pos, 200, 20)
         self.content = defualtValue
-        self.titleHelper = Text(title, tuple(vec2d(*self.rect.topleft) - vec2d(0, 30)))
-        self.textHelper = Text(self.content, (self.rect.x, self.rect.y))
+        self.titleHelper = TextHelper(title, tuple(vec2d(*self.rect.topleft) - vec2d(0, 30)))
+        self.textHelper = TextHelper(self.content, (self.rect.x, self.rect.y))
         self.registered = False
         self.quitEventBus = False
 
@@ -22,7 +22,7 @@ class TextBox(BaseItem):
 
         pygame.draw.rect(surface, (0, 0, 0), self.rect, width=2)
 
-        self.textHelper = Text(self.content, (self.rect.x, self.rect.y))
+        self.textHelper = TextHelper(self.content, (self.rect.x, self.rect.y))
         self.textHelper.draw(surface)
 
         if eventSubList.get(locals.KEYDOWN) is None:

@@ -1,7 +1,7 @@
 import pygame
 from typing import Callable
 from ..utils import vec2d
-from .items import BaseItem, Text, Button
+from .items import BaseItem, TextHelper, Button
 
 
 class BaseScene:
@@ -19,13 +19,13 @@ class BaseScene:
         self.start = False
 
         pos = vec2d(1300, 20)
-        settingText = Text("Settings", tuple(pos))
+        settingText = TextHelper("Settings", tuple(pos))
         self.items.append(settingText)
 
         button = Button('start', (1300, 680))
         self.items.append(button)
 
-        descriptionText = Text(description, tuple(pos + vec2d(0, 40)), color=pygame.color.Color(128, 128, 128))
+        descriptionText = TextHelper(description, tuple(pos + vec2d(0, 40)), color=pygame.color.Color(128, 128, 128))
         self.items.append(descriptionText)
 
 
