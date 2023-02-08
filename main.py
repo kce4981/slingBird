@@ -4,8 +4,8 @@ from src.scene import GravityTest, ParticleTest, SpringSMH, Projectile
 slingBird = SlingBird()
 
 scenes = [
-    GravityTest(),
-    ParticleTest(),
+    # GravityTest(),
+    # ParticleTest(),
     SpringSMH(),
     Projectile()
 ]
