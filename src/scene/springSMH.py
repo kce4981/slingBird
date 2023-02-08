@@ -1,6 +1,7 @@
 from . import BaseScene
+from .items import TextBox
 from ..objects import Spring, SingleParticle
-from ..utils import vec2d
+from ..utils import Kilogram, vec2d
 import pygame
 
 class SpringSMH(BaseScene):
@@ -12,8 +13,10 @@ class SpringSMH(BaseScene):
 
         self.singleParticle = SingleParticle(pos, color=pygame.color.Color(0, 140, 255))
         self.spring = Spring(pos - vec2d(0, 100), self.singleParticle.mainParticle, 1.0, length=50)
-
         self.addGroup(self.singleParticle, self.spring)
+
+        self.massTextBox = TextBox((1290, 150), 'Mass (kg): float', '1')
+        self.items.append(self.massTextBox)
 
         self.graphBackground = pygame.surface.Surface((1280, 720))
         self.graphBackground.fill((255, 255, 255))
@@ -33,4 +36,15 @@ class SpringSMH(BaseScene):
 
     def draw(self, surface: pygame.surface.Surface):
         return super().draw(surface)
+
+    def handleSetting(self) -> None:
+        try:
+            mass = float(self.massTextBox.content)
+        except ValueError:
+            mass = 1
+        else:
+            if mass <= 0:
+                mass = 1
+        self.singleParticle.mainParticle.mass = Kilogram(mass)
+        return super().handleSetting()
         
