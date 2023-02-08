@@ -9,7 +9,7 @@ import math
 class Projectile(BaseScene):
 
     def __init__(self) -> None:
-        super().__init__("")
+        super().__init__("red = idealGraph")
 
         self.particle = SingleParticle(vec2d(30, 700))
         self.addGroup(self.particle)
